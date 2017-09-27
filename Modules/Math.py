@@ -71,6 +71,7 @@ def find_res_map(Objects):
     index = 0
     resist_paralel=0
     while index < len(Objects)-1:
+
         #print(Objects[index].get_group())
         #print(Objects[index].get_resist())
         group = Objects[index].get_group()[0]
@@ -78,6 +79,8 @@ def find_res_map(Objects):
             Resistor_map.append(Objects[index].get_resist())
             index +=1
         print(group,index)
+        group = Objects[index].get_group()[0]
+
         if Objects[index].get_group()[0] == Objects[index+1].get_group()[0] and not group == 'Z' and not group == 'U' and not group == "B":
             index_b = index
             Resistor_paralel_map.clear()
