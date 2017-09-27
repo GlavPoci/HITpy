@@ -1,8 +1,8 @@
 from Tkinter import *
+from Modules.Math import *
 from PIL import *
 from PIL import Image
 import ImageTk
-from Modules.Math import * 
 
 
 #All MOdules that you need for that
