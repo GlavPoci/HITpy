@@ -70,22 +70,25 @@ def find_res_map(Objects):
     index_b = 0
     index = 0
     resist_paralel=0
-
     while index < len(Objects)-1:
         #print(Objects[index].get_group())
         #print(Objects[index].get_resist())
         group = Objects[index].get_group()[0]
-        if group == 'Z' and not group == "B":
+        if group == 'Z' or group == 'U' and not group == "B":
             Resistor_map.append(Objects[index].get_resist())
             index +=1
-        print(group)
-
-        if Objects[index].get_group()[0] == Objects[index+1].get_group()[0] and not group == 'Z' and not group == "B":
+        print(group,index)
+        if Objects[index].get_group()[0] == Objects[index+1].get_group()[0] and not group == 'Z' and not group == 'U' and not group == "B":
             index_b = index
+            Resistor_paralel_map.clear()
+            resist_posl_par = 0
+            resist_paralel=0
+            print(resist_posl_par)
             print(index,'Paralel')
             while Objects[index_b].get_group()[0] == group and not group == 'Z':
                 resist_posl_par = 0
-                print(index,'REDC')
+                #print(index,'REDC')
+                index = index_b
                 group_2 = Objects[index].get_group()[1]
                 if Objects[index_b].get_group()[1] == group_2 and not group_2 == '0':
                     while Objects[index_b].get_group()[1] == group_2 and not group_2 == '0':
@@ -100,22 +103,39 @@ def find_res_map(Objects):
                 #print(Resistor_paralel_map,'LIST')
                 index = index_b
                 #print(Resistor_paralel_map,index)
-            for count in range(len(Resistor_paralel_map)):
+            count = 0
+            while count < (len(Resistor_paralel_map)):
                 resist_paralel += 1 / Resistor_paralel_map[count]
+                count +=1
                 #print(resist_paralel,"MOR")
             if resist_paralel > 0:
                 resist_paralel = 1 / resist_paralel
             Resistor_map.append(resist_paralel)
             index = index_b
             #print(Resistor_paralel_map,'LIST')
-        group = Objects[index].get_group()[0]
-        if group == 'Z' and not group == "B":
+        elif group == 'Z' or group == 'U' and not group == "B":
             Resistor_map.append(Objects[index].get_resist())
             index +=1
+        group = Objects[index].get_group()[0]
         print(index)
-    for index in range(len(Resistor_map)):
-        if Resistor_map[index] == 0:
-            #print(Resistor_map)
-            Resistor_map.pop(index)
+        index_b = index
+    index_c = 0
+    while index_c < len(Resistor_map):
+        if Resistor_map[index_c] == 0:
+            #print(Resistor_map,index_c)
+            Resistor_map.pop(index_c)
+        index_c+=1
+    index_c = 0
+    while index_c < len(Resistor_map):
+        if Resistor_map[index_c] == 0:
+            #print(Resistor_map,index_c)
+            Resistor_map.pop(index_c)
+        index_c+=1
 
     return(Resistor_map,"DER")
+
+def check_connect(resistor_a,resistor_b):
+    if resistor_a.get_group() == resistor_b.get_group() and not resistor_a == 'Z0' and not resistor_b == "Z0":
+        return(True)
+    else:
+        return(False)
