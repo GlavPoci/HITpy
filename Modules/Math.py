@@ -6,8 +6,8 @@ class Resistor:
         self.resist = resist
         self.group = str(group)
 
-    def show_position(self):
-        return([self.position_x,self.position_y,])
+    def get_position(self):
+        return([self.position_x,self.position_y])
 
     def get_resist(self):
         return(int(self.resist))
@@ -22,11 +22,12 @@ class Battery:
         self.position_y = y
         self.voltage = voltage
         self.group = group
-    def show_position(self):
+    def get_position(self):
         print(self.position_x,self.position_y)
     def get_group(self):
         return(self.group)
 
+    
 def read_object(path):
     object = open(path, 'r')
     ObjectArray = object.read().splitlines()
